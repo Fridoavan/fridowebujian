@@ -1,123 +1,39 @@
-/* src/app/page.tsx */
 "use client";
-
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [itemsCount, setItemsCount] = useState(0);
-  const [loansCount, setLoansCount] = useState(0);
-  const [usersCount, setUsersCount] = useState(0);
+  const [items, setItems] = useState(0);
+  const [loans, setLoans] = useState(0);
+  const [users, setUsers] = useState(0);
 
   useEffect(() => {
-    const animate = (
-      setter: (n: number) => void,
-      target: number,
-      duration = 1000
-    ) => {
+    const animate = (set: any, target: number, dur = 1000) => {
       const start = Date.now();
-      const from = 0;
       const tick = () => {
-        const now = Date.now();
-        const t = Math.min(1, (now - start) / duration);
-        setter(Math.floor(from + (target - from) * easeOutCubic(t)));
+        const t = Math.min(1, (Date.now() - start) / dur);
+        set(Math.floor(target * (1 - Math.pow(1 - t, 3))));
         if (t < 1) requestAnimationFrame(tick);
       };
       tick();
     };
-
-    animate(setItemsCount, 50, 1200);
-    animate(setLoansCount, 20, 1200);
-    animate(setUsersCount, 35, 1200);
-
-    function easeOutCubic(t: number) {
-      return 1 - Math.pow(1 - t, 3);
-    }
+    animate(setItems, 50, 1200);
+    animate(setLoans, 20, 1200);
+    animate(setUsers, 35, 1200);
   }, []);
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#0f172a] via-[#0b1020] to-[#0b1228] text-white overflow-x-hidden">
-      {/* decorative blobs */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <svg
-          className="absolute -left-64 -top-40 opacity-40 blur-3xl"
-          width="700"
-          height="700"
-          viewBox="0 0 600 600"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g transform="translate(300,300)">
-            <path
-              d="M120,-160C151,-132,171,-90,176,-42C181,7,172,55,145,93C119,131,76,159,30,183C-15,206,-62,225,-104,208C-146,191,-183,138,-197,83C-211,28,-203,-29,-174,-71C-145,-113,-95,-139,-47,-162C1,-184,50,-203,96,-186C143,-169,88,-188,120,-160Z"
-              fill="#7c3aed"
-            />
-          </g>
-        </svg>
-        <svg
-          className="absolute -right-64 -bottom-48 opacity-30 blur-2xl"
-          width="600"
-          height="600"
-          viewBox="0 0 600 600"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g transform="translate(300,300)">
-            <path
-              d="M100,-150C140,-130,180,-90,190,-40C200,10,180,55,150,93C120,131,70,165,20,185C-30,205,-85,210,-120,190C-155,170,-170,110,-190,60C-210,10,-240,-30,-220,-80C-200,-130,-140,-170,-80,-190C-20,-210,40,-210,100,-150Z"
-              fill="#06b6d4"
-            />
-          </g>
-        </svg>
-      </div>
-
+    <main className="min-h-screen w-full bg-gradient-to-b from-[#0f172a] via-[#0b1020] to-[#0b1228] text-white overflow-x-hidden">
       {/* NAVBAR */}
-      <header className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-white/20 to-white/10 flex items-center justify-center ring-1 ring-white/10">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              className="text-white"
-            >
-              <rect
-                x="3"
-                y="3"
-                width="18"
-                height="18"
-                rx="4"
-                fill="white"
-                opacity="0.12"
-              />
-              <path
-                d="M6 12h12M12 6v12"
-                stroke="white"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-          <div>
-            <h1 className="text-lg font-semibold">Inventaris Sarpras</h1>
-            <p className="text-xs text-white/60 -mt-0.5">
-              Smart Inventory System
-            </p>
-          </div>
-        </div>
-
-        <nav className="flex items-center gap-4">
-          <Link
-            href="#features"
-            className="text-sm hover:text-white/90 text-white/80 transition"
-          >
+      <header className="w-full px-6 py-6 flex justify-between items-center">
+        <h1 className="font-semibold text-lg">Inventaris Sarpras By Frido</h1>
+        <nav className="flex gap-4">
+          <Link href="#features" className="text-white/80 hover:text-white/90">
             Features
           </Link>
           <Link
             href="/login"
-            className="ml-2 inline-flex items-center gap-2 px-4 py-2 rounded-md bg-white text-blue-800 font-semibold hover:scale-105 transition shadow-md"
+            className="px-4 py-2 bg-white text-blue-800 rounded-md font-semibold hover:scale-105 transition"
           >
             Login
           </Link>
@@ -125,186 +41,99 @@ export default function Home() {
       </header>
 
       {/* HERO */}
-      <section className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+      <section className="w-full px-4 sm:px-6 py-12 grid md:grid-cols-2 gap-6 items-center">
         <div className="space-y-6">
-          <h2 className="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-extrabold">
             Inventaris Sarpras —{" "}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#7c3aed] to-[#06b6d4]">
               Smart Inventory
             </span>
           </h2>
-          <p className="text-white/80 max-w-xl">
+          <p className="text-white/80 max-w-full">
             Kelola sarana & prasarana sekolah dengan cepat: input barang, catat
-            peminjaman, pantau kondisi, dan generate laporan. Ringan, responsif,
-            & siap dipakai.
+            peminjaman, pantau kondisi, dan generate laporan.
           </p>
-
           <div className="flex flex-wrap gap-3">
             <Link
               href="/login"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-white text-blue-800 font-semibold shadow-lg hover:translate-y-[-2px] transition"
+              className="px-5 py-3 bg-white text-blue-800 rounded-md font-semibold shadow-lg hover:-translate-y-1 transition"
             >
               Masuk Sekarang
             </Link>
             <a
               href="#features"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-white/10 text-white/90 hover:bg-white/5 transition"
+              className="px-5 py-3 border border-white/10 rounded-md text-white/90 hover:bg-white/5 transition"
             >
               Lihat Fitur
             </a>
           </div>
-
-          <div id="stats" className="mt-8 flex flex-wrap gap-6">
-            <Stat label="Items" value={itemsCount} />
-            <Stat label="Peminjaman" value={loansCount} />
-            <Stat label="Pengguna" value={usersCount} />
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Stat label="Items" value={items} />
+            <Stat label="Peminjaman" value={loans} />
+            <Stat label="Pengguna" value={users} />
           </div>
         </div>
 
-        {/* Demo panel */}
-        <div className="relative">
-          <div className="mx-auto w-[520px] max-w-full transform hover:-translate-y-2 transition">
-            <div className="rounded-2xl border border-white/8 bg-white/6 backdrop-blur p-4 shadow-2xl">
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <h3 className="text-sm text-white/90 font-semibold">
-                    Dashboard Preview
-                  </h3>
-                  <p className="text-xs text-white/60">
-                    Ringkasan inventaris & peminjaman
-                  </p>
-                </div>
-                <div className="inline-flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-green-400/90" />
-                  <span className="text-xs text-white/70">Connected</span>
-                </div>
-              </div>
-
-              <div className="bg-gradient-to-br from-white/5 to-white/2 rounded-lg p-3">
-                <div className="flex items-center justify-between text-sm text-white/80 mb-3">
-                  <span>Proyektor</span>
-                  <span>Qty: 4</span>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3 text-xs">
-                  <div className="p-2 rounded-md bg-white/4">Kondisi: Baik</div>
-                  <div className="p-2 rounded-md bg-white/4">
-                    Lokasi: Kantor RPL
-                  </div>
-                  <div className="p-2 rounded-md bg-white/4">
-                    Terakhir Pinjam: 2025-10-05
-                  </div>
-                  <div className="p-2 rounded-md bg-white/4">
-                    Status: Tersedia
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-4 flex gap-2">
-                <button className="flex-1 px-3 py-2 rounded-md bg-[#7c3aed] text-white font-medium hover:opacity-95 transition">
-                  Tambah Barang
-                </button>
-                <button className="flex-1 px-3 py-2 rounded-md border border-white/8 text-white/90 hover:bg-white/3 transition">
-                  Lihat Laporan
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Modern Photo Card */}
+        <PhotoCard
+          src="/fridogg.jpeg"
+          name="Frido Avan Almuzaki"
+          desc="Mobile Legend Player and Nonchalant boy"
+        />
       </section>
 
       {/* FEATURES */}
-      <section id="features" className="max-w-7xl mx-auto px-6 py-12">
+      <section id="features" className="w-full px-4 sm:px-6 py-12">
         <h3 className="text-2xl font-bold mb-6">Fitur Unggulan</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-6">
           <Feature
             title="Input & Management"
-            desc="Tambah, edit, dan hapus data barang dengan field lengkap: nama, kode, jumlah, kondisi, lokasi."
-            icon={
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                className="text-white"
-                fill="none"
-              >
-                <path
-                  d="M4 7h16M4 12h10M4 17h16"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            }
+            desc="Tambah, edit, hapus data barang lengkap."
           />
           <Feature
             title="Pencatatan Peminjaman"
-            desc="Catat peminjaman & pengembalian. Riwayat tersimpan untuk audit dan laporan."
-            icon={
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                className="text-white"
-                fill="none"
-              >
-                <path
-                  d="M3 7h18M8 3v4M16 3v4M5 21h14a2 2 0 0 0 2-2V8H3v11a2 2 0 0 0 2 2z"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            }
+            desc="Catat peminjaman & pengembalian, riwayat tersimpan."
           />
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="max-w-7xl mx-auto px-6 py-10 text-white/70">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <div>
-            <h4 className="font-semibold">Inventaris Sarpras</h4>
-            <p className="text-sm text-white/60">Smart Inventory System</p>
-            <p className="text-xs text-white/50 mt-3">
-              © 2025 Frido Avan Almuzaki, All Right Reserved
-            </p>
-          </div>
-        </div>
+      <footer className="w-full px-4 sm:px-6 py-10 text-white/70 text-center">
+        © 2025 Frido Avan Almuzaki, All Right Reserved
       </footer>
     </main>
   );
 }
 
-/* Small presentational components inside same file */
+// Components
+const Stat = ({ label, value }: { label: string; value: number }) => (
+  <div className="bg-white/6 rounded-lg p-4 min-w-[120px] text-center">
+    <div className="text-sm text-white/80">{label}</div>
+    <div className="text-2xl font-bold mt-2">{value}</div>
+  </div>
+);
 
-function Stat({ label, value }: { label: string; value: number }) {
-  return (
-    <div className="bg-white/6 rounded-lg p-4 min-w-[120px]">
-      <div className="text-sm text-white/80">{label}</div>
-      <div className="text-2xl font-bold mt-2">{value}</div>
-    </div>
-  );
-}
+const Feature = ({ title, desc }: { title: string; desc: string }) => (
+  <div className="p-6 rounded-xl bg-white/5 hover:scale-[1.02] transition transform">
+    <h4 className="font-semibold mb-2">{title}</h4>
+    <p className="text-sm text-white/70">{desc}</p>
+  </div>
+);
 
-function Feature({
-  title,
+const PhotoCard = ({
+  src,
+  name,
   desc,
-  icon,
 }: {
-  title: string;
+  src: string;
+  name: string;
   desc: string;
-  icon: React.ReactNode;
-}) {
-  return (
-    <div className="p-6 rounded-xl bg-white/5 hover:scale-[1.02] transition transform">
-      <div className="w-12 h-12 rounded-lg bg-white/6 flex items-center justify-center mb-4">
-        {icon}
-      </div>
-      <h4 className="font-semibold mb-2">{title}</h4>
+}) => (
+  <div className="w-full max-w-sm relative rounded-3xl overflow-hidden border-4 border-gradient-to-r from-[#7c3aed] to-[#06b6d4] shadow-2xl transition-transform hover:scale-105 hover:rotate-1 hover:shadow-[#7c3aed]/50">
+    <img src={src} alt={name} className="w-full h-auto object-cover" />
+    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 text-center">
+      <h3 className="text-white font-bold text-lg">{name}</h3>
       <p className="text-sm text-white/70">{desc}</p>
     </div>
-  );
-}
+  </div>
+);

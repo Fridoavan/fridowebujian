@@ -12,13 +12,14 @@ export default function LoginPage() {
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState(""); // <-- state error
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (nickname === "admin" && password === "12345") {
       router.push("/dashboard");
     } else {
-      alert("Nickname atau Password salah!");
+      setError("Nama dan Sandi Anda Tidak Cocok"); // <-- set error
     }
   };
 
@@ -27,7 +28,7 @@ export default function LoginPage() {
       <Card className="w-full max-w-md bg-white/10 backdrop-blur-lg border border-white/20 text-white shadow-2xl rounded-2xl">
         <CardHeader>
           <CardTitle className="text-center text-2xl font-bold tracking-wide">
-            🔐 Inventaris Sarpras
+            Inventaris Sarpras
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -66,6 +67,11 @@ export default function LoginPage() {
                 </button>
               </div>
             </div>
+
+            {/* Error message */}
+            {error && (
+              <p className="text-red-500 text-sm text-center -mt-2">{error}</p>
+            )}
 
             <Button
               type="submit"
