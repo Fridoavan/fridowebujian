@@ -26,14 +26,19 @@ export default function Home() {
     <main className="min-h-screen w-full bg-gradient-to-b from-[#0f172a] via-[#0b1020] to-[#0b1228] text-white overflow-x-hidden">
       {/* NAVBAR */}
       <header className="w-full px-6 py-6 flex justify-between items-center">
-        <h1 className="font-semibold text-lg">Inventaris Sarpras By Frido</h1>
-        <nav className="flex gap-4">
-          <Link href="#features" className="text-white/80 hover:text-white/90">
+        <h1 className="font-semibold text-lg leading-tight">
+          Inventaris Sarpras By Frido
+        </h1>
+        <nav className="flex items-center gap-4">
+          <Link
+            href="#features"
+            className="text-white/80 hover:text-white/90 text-sm font-medium py-2"
+          >
             Features
           </Link>
           <Link
             href="/login"
-            className="px-4 py-2 bg-white text-blue-800 rounded-md font-semibold hover:scale-105 transition"
+            className="px-4 py-2 bg-white text-blue-800 rounded-md font-semibold text-sm hover:scale-105 transition shadow-md"
           >
             Login
           </Link>
