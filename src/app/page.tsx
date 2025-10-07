@@ -34,7 +34,7 @@ export default function Home() {
             href="#features"
             className="text-white/80 hover:text-white/90 text-sm font-medium py-2"
           >
-            Features
+            Fitur
           </Link>
           <Link
             href="/login"
