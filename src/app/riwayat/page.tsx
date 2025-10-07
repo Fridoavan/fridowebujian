@@ -12,9 +12,16 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
+interface RiwayatItem {
+  peminjam: string;
+  barang: string;
+  jumlah: string;
+  tanggal: string;
+}
+
 export default function RiwayatPage() {
   const router = useRouter();
-  const [riwayat, setRiwayat] = useState<any[]>([]);
+  const [riwayat, setRiwayat] = useState<RiwayatItem[]>([]);
 
   useEffect(() => {
     const data = localStorage.getItem("riwayat");

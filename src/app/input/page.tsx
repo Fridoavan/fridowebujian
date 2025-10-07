@@ -5,16 +5,23 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 
+interface RiwayatItem {
+  peminjam: string;
+  barang: string;
+  jumlah: string;
+  tanggal: string;
+}
+
 export default function InputPage() {
   const router = useRouter();
-  const [data, setData] = useState({
+  const [data, setData] = useState<RiwayatItem>({
     peminjam: "",
     barang: "",
     jumlah: "",
     tanggal: "",
   });
 
-  const [riwayat, setRiwayat] = useState<any[]>([]);
+  const [riwayat, setRiwayat] = useState<RiwayatItem[]>([]);
 
   useEffect(() => {
     const stored = localStorage.getItem("riwayat");
