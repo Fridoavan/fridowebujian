@@ -5,13 +5,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  // simple animated counters
   const [itemsCount, setItemsCount] = useState(0);
   const [loansCount, setLoansCount] = useState(0);
   const [usersCount, setUsersCount] = useState(0);
 
   useEffect(() => {
-    // animate counters up to target
     const animate = (
       setter: (n: number) => void,
       target: number,
@@ -36,32 +34,6 @@ export default function Home() {
       return 1 - Math.pow(1 - t, 3);
     }
   }, []);
-
-  // simple testimonials data
-  const testimonials = [
-    {
-      name: "Pak Joko - TU",
-      text: "Mencatat peminjaman jadi super gampang, tidak ada lagi barang 'ilang'.",
-    },
-    {
-      name: "Bu Rina - Kepala Sekolah",
-      text: "Laporan rapih dan cepat, sangat membantu monitoring sarpras sekolah.",
-    },
-    {
-      name: "Andi - Petugas IT",
-      text: "UI-nya ringan, responsive, dan mudah dioperasikan oleh staf non-teknis.",
-    },
-  ];
-
-  // carousel state
-  const [idx, setIdx] = useState(0);
-  useEffect(() => {
-    const id = setInterval(
-      () => setIdx((i) => (i + 1) % testimonials.length),
-      4500
-    );
-    return () => clearInterval(id);
-  }, [testimonials.length]);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#0f172a] via-[#0b1020] to-[#0b1228] text-white overflow-x-hidden">
@@ -103,7 +75,6 @@ export default function Home() {
       <header className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-white/20 to-white/10 flex items-center justify-center ring-1 ring-white/10">
-            {/* simple logo mark */}
             <svg
               width="20"
               height="20"
@@ -143,18 +114,6 @@ export default function Home() {
             className="text-sm hover:text-white/90 text-white/80 transition"
           >
             Features
-          </Link>
-          <Link
-            href="#stats"
-            className="text-sm hover:text-white/90 text-white/80 transition"
-          >
-            Stats
-          </Link>
-          <Link
-            href="#testi"
-            className="text-sm hover:text-white/90 text-white/80 transition"
-          >
-            Testimonials
           </Link>
           <Link
             href="/login"
@@ -257,7 +216,7 @@ export default function Home() {
       {/* FEATURES */}
       <section id="features" className="max-w-7xl mx-auto px-6 py-12">
         <h3 className="text-2xl font-bold mb-6">Fitur Unggulan</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Feature
             title="Input & Management"
             desc="Tambah, edit, dan hapus data barang dengan field lengkap: nama, kode, jumlah, kondisi, lokasi."
@@ -300,80 +259,6 @@ export default function Home() {
               </svg>
             }
           />
-          <Feature
-            title="Laporan & Export"
-            desc="Generate laporan ringkasan inventaris & ekspor ke CSV/PDF untuk kebutuhan administrasi."
-            icon={
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                className="text-white"
-                fill="none"
-              >
-                <path
-                  d="M12 2v12M8 6h8M4 20h16"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            }
-          />
-        </div>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section id="testi" className="max-w-7xl mx-auto px-6 py-12">
-        <h3 className="text-2xl font-bold mb-6">Apa kata mereka</h3>
-
-        <div className="relative bg-white/5 rounded-2xl p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <p className="text-sm text-white/80">Dipakai di banyak sekolah</p>
-              <p className="text-xs text-white/60">
-                Dari staf sampai kepala sekolah
-              </p>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() =>
-                  setIdx(
-                    (i) => (i - 1 + testimonials.length) % testimonials.length
-                  )
-                }
-                className="p-2 rounded-md bg-white/6 hover:bg-white/8 transition"
-              >
-                ◀
-              </button>
-              <button
-                onClick={() => setIdx((i) => (i + 1) % testimonials.length)}
-                className="p-2 rounded-md bg-white/6 hover:bg-white/8 transition"
-              >
-                ▶
-              </button>
-            </div>
-          </div>
-
-          <div className="min-h-[120px] flex items-center">
-            {/* simple crossfade */}
-            {testimonials.map((t, i) => (
-              <blockquote
-                key={i}
-                className={`transition-all duration-700 ease-in-out opacity-${
-                  i === idx ? 100 : 0
-                } ${
-                  i === idx ? "translate-y-0" : "translate-y-4"
-                } absolute left-6 right-6`}
-                style={{ opacity: i === idx ? 1 : 0 }}
-              >
-                <p className="text-lg text-white/90 mb-3">“{t.text}”</p>
-                <cite className="text-sm text-white/60">— {t.name}</cite>
-              </blockquote>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -382,24 +267,10 @@ export default function Home() {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
             <h4 className="font-semibold">Inventaris Sarpras</h4>
-            <p className="text-sm text-white/60">
-              Smart Inventory System • Untuk administrasi sarana & prasarana
-            </p>
+            <p className="text-sm text-white/60">Smart Inventory System</p>
             <p className="text-xs text-white/50 mt-3">
-              © 2025 Frido — PT Grow Smart Indonesia
+              © 2025 Frido Avan Almuzaki, All Right Reserved
             </p>
-          </div>
-
-          <div className="flex gap-4">
-            <a href="#" className="text-sm hover:text-white">
-              Dokumentasi
-            </a>
-            <a href="#" className="text-sm hover:text-white">
-              Kontak
-            </a>
-            <a href="#" className="text-sm hover:text-white">
-              GitHub
-            </a>
           </div>
         </div>
       </footer>
@@ -407,7 +278,7 @@ export default function Home() {
   );
 }
 
-/* Small presentational components inside same file so copy-paste gampang */
+/* Small presentational components inside same file */
 
 function Stat({ label, value }: { label: string; value: number }) {
   return (
