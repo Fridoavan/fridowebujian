@@ -5,18 +5,22 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ClipboardList, FilePlus, Info } from "lucide-react";
 
 export default function DashboardPage() {
+  {
+    /* NAVIGASI ROUTER */
+  }
   const router = useRouter();
-
   const navigate = (path: string) => {
     router.push(path);
   };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-900 via-slate-900 to-black text-white p-8">
+      {/* JUDUL DASHBOARD */}
       <h1 className="text-4xl font-bold mb-10 text-center tracking-wide">
         Dashboard Inventaris Sarpras
       </h1>
 
+      {/* GRID KARTU */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
         {/* Card Riwayat */}
         <Card
@@ -25,7 +29,7 @@ export default function DashboardPage() {
         >
           <CardHeader className="flex flex-col items-center">
             <ClipboardList size={50} className="text-blue-400 mb-4" />
-            <CardTitle className="text-xl font-semibold text-center">
+            <CardTitle className="text-xl font-semibold text-center text-white">
               Riwayat Peminjaman
             </CardTitle>
           </CardHeader>
@@ -41,7 +45,7 @@ export default function DashboardPage() {
         >
           <CardHeader className="flex flex-col items-center">
             <FilePlus size={50} className="text-green-400 mb-4" />
-            <CardTitle className="text-xl font-semibold text-center">
+            <CardTitle className="text-xl font-semibold text-center text-white">
               Input Data Barang
             </CardTitle>
           </CardHeader>
@@ -57,7 +61,7 @@ export default function DashboardPage() {
         >
           <CardHeader className="flex flex-col items-center">
             <Info size={50} className="text-purple-400 mb-4" />
-            <CardTitle className="text-xl font-semibold text-center">
+            <CardTitle className="text-xl font-semibold text-center text-white">
               Tentang Aplikasi
             </CardTitle>
           </CardHeader>
