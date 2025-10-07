@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function Home() {
   const [items, setItems] = useState(0);
@@ -8,15 +9,20 @@ export default function Home() {
   const [users, setUsers] = useState(0);
 
   useEffect(() => {
-    const animate = (set: any, target: number, dur = 1000) => {
+    const animate = (
+      setter: React.Dispatch<React.SetStateAction<number>>,
+      target: number,
+      dur = 1000
+    ) => {
       const start = Date.now();
       const tick = () => {
         const t = Math.min(1, (Date.now() - start) / dur);
-        set(Math.floor(target * (1 - Math.pow(1 - t, 3))));
+        setter(Math.floor(target * (1 - Math.pow(1 - t, 3))));
         if (t < 1) requestAnimationFrame(tick);
       };
       tick();
     };
+
     animate(setItems, 50, 1200);
     animate(setLoans, 20, 1200);
     animate(setUsers, 35, 1200);
@@ -34,7 +40,7 @@ export default function Home() {
             href="#features"
             className="text-white/80 hover:text-white/90 text-sm font-medium py-2"
           >
-            Fitur
+            Features
           </Link>
           <Link
             href="/login"
@@ -46,7 +52,7 @@ export default function Home() {
       </header>
 
       {/* HERO */}
-      <section className="w-full px-4 sm:px-6 py-12 grid md:grid-cols-2 gap-6 items-center">
+      <section className="w-full px-4 sm:px-6 py-12 grid md:grid-cols-2 gap-12 items-center">
         <div className="space-y-6">
           <h2 className="text-4xl md:text-5xl font-extrabold">
             Inventaris Sarpras —{" "}
@@ -79,12 +85,14 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Modern Photo Card */}
-        <PhotoCard
-          src="/fridogg.jpeg"
-          name="Frido Avan Almuzaki"
-          desc="Mobile Legend Player and Nonchalant boy"
-        />
+        {/* Modern Photo Card dengan jarak aman */}
+        <div className="ml-0 md:ml-8">
+          <PhotoCard
+            src="/fridogg.jpeg"
+            name="Frido Avan Almuzaki"
+            desc="Mobile Legend Player and Nonchalant boy"
+          />
+        </div>
       </section>
 
       {/* FEATURES */}
@@ -135,7 +143,13 @@ const PhotoCard = ({
   desc: string;
 }) => (
   <div className="w-full max-w-sm relative rounded-3xl overflow-hidden border-4 border-gradient-to-r from-[#7c3aed] to-[#06b6d4] shadow-2xl transition-transform hover:scale-105 hover:rotate-1 hover:shadow-[#7c3aed]/50">
-    <img src={src} alt={name} className="w-full h-auto object-cover" />
+    <Image
+      src={src}
+      alt={name}
+      width={400}
+      height={400}
+      className="w-full h-auto object-cover"
+    />
     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 text-center">
       <h3 className="text-white font-bold text-lg">{name}</h3>
       <p className="text-sm text-white/70">{desc}</p>
