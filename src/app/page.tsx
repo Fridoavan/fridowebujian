@@ -5,10 +5,16 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Home() {
+  {
+    /* STATE UNTUK STATISTIK */
+  }
   const [itemsCount, setItemsCount] = useState(0);
   const [loansCount, setLoansCount] = useState(0);
   const [usersCount, setUsersCount] = useState(0);
 
+  {
+    /* EFFECT ANIMASI STATISTIK */
+  }
   useEffect(() => {
     const animate = (
       setter: (n: number) => void,
@@ -26,9 +32,12 @@ export default function Home() {
       tick();
     };
 
-    animate(setItemsCount, 1248, 1200);
-    animate(setLoansCount, 312, 1200);
-    animate(setUsersCount, 89, 1200);
+    {
+      /* ANIMASI STATISTIK DENGAN NILAI BARU */
+    }
+    animate(setItemsCount, 20, 1200);
+    animate(setLoansCount, 12, 1200);
+    animate(setUsersCount, 12, 1200);
 
     function easeOutCubic(t: number) {
       return 1 - Math.pow(1 - t, 3);
@@ -37,8 +46,9 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#0f172a] via-[#0b1020] to-[#0b1228] text-white overflow-x-hidden">
-      {/* decorative blobs */}
+      {/* BLOBS DEKORATIF */}
       <div className="pointer-events-none absolute inset-0 -z-10">
+        {/* BLOB UNGU */}
         <svg
           className="absolute -left-64 -top-40 opacity-40 blur-3xl"
           width="700"
@@ -54,6 +64,8 @@ export default function Home() {
             />
           </g>
         </svg>
+
+        {/* BLOB BIRU */}
         <svg
           className="absolute -right-64 -bottom-48 opacity-30 blur-2xl"
           width="600"
@@ -139,6 +151,7 @@ export default function Home() {
             & siap dipakai.
           </p>
 
+          {/* CTA BUTTONS */}
           <div className="flex flex-wrap gap-3">
             <Link
               href="/login"
@@ -154,6 +167,7 @@ export default function Home() {
             </a>
           </div>
 
+          {/* STATISTIK */}
           <div id="stats" className="mt-8 flex flex-wrap gap-6">
             <Stat label="Items" value={itemsCount} />
             <Stat label="Peminjaman" value={loansCount} />
@@ -161,7 +175,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Demo panel */}
+        {/* DEMO PANEL */}
         <div className="relative">
           <div className="mx-auto w-[520px] max-w-full transform hover:-translate-y-2 transition">
             <div className="rounded-2xl border border-white/8 bg-white/6 backdrop-blur p-4 shadow-2xl">
@@ -189,7 +203,7 @@ export default function Home() {
                 <div className="grid grid-cols-2 gap-3 text-xs">
                   <div className="p-2 rounded-md bg-white/4">Kondisi: Baik</div>
                   <div className="p-2 rounded-md bg-white/4">
-                    Lokasi: Ruang Multimedia
+                    Lokasi: Kantor RPL
                   </div>
                   <div className="p-2 rounded-md bg-white/4">
                     Terakhir Pinjam: 2025-10-05
@@ -278,8 +292,7 @@ export default function Home() {
   );
 }
 
-/* Small presentational components inside same file */
-
+/* COMPONENT UNTUK MENAMPILKAN STATISTIK */
 function Stat({ label, value }: { label: string; value: number }) {
   return (
     <div className="bg-white/6 rounded-lg p-4 min-w-[120px]">
@@ -289,6 +302,7 @@ function Stat({ label, value }: { label: string; value: number }) {
   );
 }
 
+/* COMPONENT UNTUK MENAMPILKAN FITUR */
 function Feature({
   title,
   desc,
