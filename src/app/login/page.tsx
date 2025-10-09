@@ -9,18 +9,10 @@ import { Button } from "@/components/ui/button";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState(""); // <-- state error
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (nickname === "admin" && password === "12345") {
-      router.push("/dashboard");
-    } else {
-      setError("Nama dan Sandi Anda Tidak Cocok"); // <-- set error
-    }
+  const handleLogin = () => {
+    router.push("/dashboard");
   };
 
   return (
@@ -31,18 +23,16 @@ export default function LoginPage() {
             Inventaris Sarpras
           </CardTitle>
         </CardHeader>
+
         <CardContent>
-          <form onSubmit={handleLogin} className="space-y-6">
+          <form className="space-y-6">
             {/* Nickname */}
             <div>
               <label className="block text-sm font-medium mb-2">Nickname</label>
               <Input
                 type="text"
-                value={nickname}
-                onChange={(e) => setNickname(e.target.value)}
                 placeholder="Masukkan nickname..."
                 className="bg-transparent border-white/30 focus:ring-2 focus:ring-blue-500 text-white"
-                required
               />
             </div>
 
@@ -52,11 +42,8 @@ export default function LoginPage() {
               <div className="relative">
                 <Input
                   type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="Masukkan password..."
                   className="bg-transparent border-white/30 focus:ring-2 focus:ring-blue-500 text-white pr-10"
-                  required
                 />
                 <button
                   type="button"
@@ -68,13 +55,9 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Error message */}
-            {error && (
-              <p className="text-red-500 text-sm text-center -mt-2">{error}</p>
-            )}
-
             <Button
-              type="submit"
+              type="button"
+              onClick={handleLogin}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 font-semibold rounded-lg shadow-md transition"
             >
               Login

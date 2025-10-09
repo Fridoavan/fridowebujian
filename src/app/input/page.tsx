@@ -22,6 +22,7 @@ export default function InputPage() {
   });
 
   const [riwayat, setRiwayat] = useState<RiwayatItem[]>([]);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem("riwayat");
@@ -38,14 +39,19 @@ export default function InputPage() {
       alert("Isi semua field dulu bro 😤");
       return;
     }
+
     const updated = [...riwayat, data];
     setRiwayat(updated);
     localStorage.setItem("riwayat", JSON.stringify(updated));
     setData({ peminjam: "", barang: "", jumlah: "", tanggal: "" });
+
+    // Tampilkan popup
+    setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 3000); // Hilang otomatis setelah 3 detik
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] flex flex-col items-center p-10 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] flex flex-col items-center p-10 text-white relative">
       <Card className="bg-gray-900/70 backdrop-blur-xl border border-gray-700 shadow-2xl w-full max-w-lg">
         <CardHeader>
           <CardTitle className="text-center text-2xl text-pink-400">
@@ -61,7 +67,7 @@ export default function InputPage() {
                 name="peminjam"
                 value={data.peminjam}
                 onChange={handleChange}
-                placeholder="Masukkan nama peminjam..."
+                placeholder="Masukkan nama peminjam... (Nama Kamu)"
                 className="mt-1"
               />
             </div>
@@ -72,7 +78,7 @@ export default function InputPage() {
                 name="barang"
                 value={data.barang}
                 onChange={handleChange}
-                placeholder="Masukkan nama barang..."
+                placeholder="Masukkan nama barang... (contoh : Proyektor, Kabel Olor, dll)"
                 className="mt-1"
               />
             </div>
@@ -114,6 +120,20 @@ export default function InputPage() {
       >
         Back
       </Button>
+
+      {/* Popup Notifikasi */}
+      {showPopup && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/60">
+          <div className="bg-white text-gray-900 rounded-lg shadow-xl p-6 max-w-sm text-center">
+            <p className="text-lg font-semibold mb-2">
+              ✅ Data sudah tersimpan!
+            </p>
+            <p className="text-sm">
+              Selesai menggunakan barang yang dipinjam harap dikembalikan.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
